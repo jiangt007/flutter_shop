@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    getHttp();
+    getHttp1();
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -61,12 +61,12 @@ class _HomePageState extends State<HomePage> {
 
   void clickButton() {
     print("开始点击按钮...");
-    if(textEditingController.text.toString() = ''){
+    if(textEditingController.text.toString() == ''){
 
     }
   }
 
-  void getHttp() async {
+  void getHttp1() async {
     try {
       Response response;
       var data = {'name': '技术胖'};

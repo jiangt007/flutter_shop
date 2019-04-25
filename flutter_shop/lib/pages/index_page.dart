@@ -45,10 +45,12 @@ class _IndexPageState extends State<IndexPage> {
         items: bottomTabs,
         type: BottomNavigationBarType.fixed,
         currentIndex: currentIndex,
-        onTap: (index){setState(() {
-          currentIndex = index;
-          currentPage = tabBodies[currentIndex];
-        });},
+        onTap: (index){
+          setState(() {
+            currentIndex = index;
+            currentPage = tabBodies[currentIndex];
+          });
+        },
       ),
       body: currentPage,
     );
