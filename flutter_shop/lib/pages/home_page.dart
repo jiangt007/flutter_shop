@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import '../service/service_method.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,75 +7,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController textEditingController;
-  String showText = "欢迎来到HHHJJJJJJJJJJJJ";
+
+  String homePageContent = '正在获取数据';
+
+  @override
+  void initState() {
+    getHomePageContent().then((val){
+      setState(() {
+        homePageContent =val.toString();
+      });
+    });
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    getHttp1();
-    return Container(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('美好人间'),
-        ),
-        body: Container(
-          child: Column(
-            children: <Widget>[
-              TextField(
-                controller: textEditingController,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10.0),
-                  labelText: '美女类型',
-                  helperText: '请输入你喜欢的类型',
-                ),
-                autofocus: false,
-              ),
-              RaisedButton(
-                onPressed: null,
-                child: Text('选择完毕'),
-              ),
-              Text(
-                showText,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              )
-            ],
-          ),
-        ),
+    return Scaffold(
+      appBar: AppBar(title: Text('百姓生活+')),
+      body: SingleChildScrollView(
+        child: Text(homePageContent),
       ),
     );
   }
-
-  Future getHttp(String TypeText) async {
-    try {
-      Response respone;
-      var data = {'name': TypeText};
-      respone = await Dio().get(
-          "https://www.easy-mock.com/mock/5c60131a4bed3a6342711498/baixing/dabaojian?name=大胸美女",
-          queryParameters: data);
-      return respone.data;
-    } catch (e) {
-      return print(e);
-    }
-  }
-
-  void clickButton() {
-    print("开始点击按钮...");
-    if(textEditingController.text.toString() == ''){
-
-    }
-  }
-
-  void getHttp1() async {
-    try {
-      Response response;
-      var data = {'name': '技术胖'};
-      response = await Dio().get(
-        "https://www.easy-mock.com/mock/5c60131a4bed3a6342711498/baixing/dabaojian?name=大胸美女",
-      );
-      return print(response);
-    } catch (e) {
-      return print(e);
-    }
-  }
 }
+
