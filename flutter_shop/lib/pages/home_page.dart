@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../service/service_method.dart';
+import 'package:sw';
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('百姓生活+')),
+      appBar: AppBar(title: Text('TR Cloud+')),
       body: SingleChildScrollView(
         child: Text(homePageContent),
       ),

@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: MaterialApp(
-        title: '百姓生活',
+        title: 'TR Cloud',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primaryColor:Colors.pink),
         home: IndexPage(),
