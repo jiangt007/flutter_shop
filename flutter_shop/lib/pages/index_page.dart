@@ -17,9 +17,9 @@ class _IndexPageState extends State<IndexPage> {
     BottomNavigationBarItem(
         icon: Icon(CupertinoIcons.search), title: Text('分类')),
     BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.shopping_cart), title: Text('购物车')),
+        icon: Icon(CupertinoIcons.settings), title: Text('设置')),
     BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.profile_circled), title: Text('会员中心')),
+        icon: Icon(CupertinoIcons.profile_circled), title: Text('用户')),
   ];
   final List tabBodies = [
     HomePage(),
