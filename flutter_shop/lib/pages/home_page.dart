@@ -21,12 +21,18 @@ class _HomePageState extends State<HomePage> {
               List<Map> swiperDataList = (data['data']['slides'] as List).cast(); // 顶部轮播组件数
               List<Map> navigatorList = (data['data']['category'] as List).cast();
               String adPicture = data['data']['advertesPicture']['PICTURE_ADDRESS'];
-              return Column(
-                children: <Widget>[
-                  SwiperDiy(swiperDataList:swiperDataList ),   //页面顶部轮播组件
-                  TopNavigator(navigatorList: navigatorList,),
-                  AdBanner(adPicture: adPicture)
-                ],
+              String leaderImage = data['data']['shopInfo']['leaderImage'];
+              String leaderPhone = data['data']['shopInfo']['leaderPhone'];
+
+              return SingleChildScrollView(
+                child:  Column(
+                  children: <Widget>[
+                    SwiperDiy(swiperDataList:swiperDataList ),   //页面顶部轮播组件
+                    TopNavigator(navigatorList: navigatorList,),
+                    AdBanner(adPicture: adPicture),
+                    LeaderPhone(leaderImage: leaderImage,leaderPhone:leaderPhone)
+                  ],
+                ),
               );
             }else{
               return Center(
@@ -109,6 +115,95 @@ class AdBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Image.network(adPicture),
+    );
+  }
+}
+
+//店长电话
+class LeaderPhone extends StatelessWidget {
+  final String leaderPhone;
+  final String leaderImage;
+
+  LeaderPhone({Key key,this.leaderImage,this.leaderPhone}) : super(key :key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: InkWell(
+        onTap: (){},
+        child: Image.network(leaderImage),
+      )
+    );
+  }
+}
+
+//商品推荐
+class CommodityRecommend extends StatelessWidget {
+  List recommendList;
+
+  CommodityRecommend({Key key,this.recommendList}): super(key:key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: ScreenUtil().setHeight(330),
+      margin: EdgeInsets.only(top: 10.0),
+      child: Column(
+        children: <Widget>[
+          _titleWidget(),
+          _recommedList()
+        ],
+      ),
+    );
+  }
+
+  Widget _titleWidget(){
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.fromLTRB(10.0,2.0,0.0,5.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border:Border(bottom: BorderSide(width: 0.5,color: Colors.black12))
+      ),
+      child: Text('商品推荐',style: TextStyle(color: Colors.pink),),
+    );
+  }
+
+  Widget _item(index){
+    return InkWell(
+      onTap: (){},
+      child: Container(
+        height: ScreenUtil().setHeight(330),
+        width: ScreenUtil().setWidth(250),
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            left: BorderSide(width: 0.5,color: Colors.black12)
+          )
+        ),
+        child: Column(
+          children: <Widget>[
+            Image.network(recommendList[index]['image']),
+            Text('${recommendList[index]['mallPrice']}'),
+            Text(
+              '${recommendList[index]['price']}',
+              style: TextStyle(decoration: TextDecoration.lineThrough,color: Colors.grey)
+            ),
+          ],
+        )
+      ),
+    )
+  }
+
+  Widget _recommedList(){
+    return Container(
+      height: ScreenUtil().setHeight(330),
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: recommendList.length,
+          itemBuilder:(context,index){return _item(index);}
+          ),
     );
   }
 }
