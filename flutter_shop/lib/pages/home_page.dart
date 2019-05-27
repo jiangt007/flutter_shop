@@ -8,7 +8,11 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +27,7 @@ class _HomePageState extends State<HomePage> {
               String adPicture = data['data']['advertesPicture']['PICTURE_ADDRESS'];
               String leaderImage = data['data']['shopInfo']['leaderImage'];
               String leaderPhone = data['data']['shopInfo']['leaderPhone'];
+              List<Map> recommendList = (data['data']['recommend'] as List).cast();
 
               return SingleChildScrollView(
                 child:  Column(
@@ -30,7 +35,8 @@ class _HomePageState extends State<HomePage> {
                     SwiperDiy(swiperDataList:swiperDataList ),   //页面顶部轮播组件
                     TopNavigator(navigatorList: navigatorList,),
                     AdBanner(adPicture: adPicture),
-                    LeaderPhone(leaderImage: leaderImage,leaderPhone:leaderPhone)
+                    LeaderPhone(leaderImage: leaderImage,leaderPhone:leaderPhone),
+                    Recommend (recommendList : recommendList)
                   ],
                 ),
               );
@@ -138,15 +144,15 @@ class LeaderPhone extends StatelessWidget {
 }
 
 //商品推荐
-class CommodityRecommend extends StatelessWidget {
-  List recommendList;
+class Recommend extends StatelessWidget {
+  final List recommendList;
 
-  CommodityRecommend({Key key,this.recommendList}): super(key:key);
+  Recommend ({Key key,this.recommendList}): super(key:key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil().setHeight(330),
+      height: ScreenUtil().setHeight(390),
       margin: EdgeInsets.only(top: 10.0),
       child: Column(
         children: <Widget>[
@@ -156,6 +162,7 @@ class CommodityRecommend extends StatelessWidget {
       ),
     );
   }
+
 
   Widget _titleWidget(){
     return Container(
@@ -179,7 +186,7 @@ class CommodityRecommend extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border(
-            left: BorderSide(width: 0.5,color: Colors.black12)
+            left: BorderSide(width: 1.0,color: Colors.black12)
           )
         ),
         child: Column(
@@ -193,7 +200,7 @@ class CommodityRecommend extends StatelessWidget {
           ],
         )
       ),
-    )
+    );
   }
 
   Widget _recommedList(){
@@ -203,7 +210,7 @@ class CommodityRecommend extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: recommendList.length,
           itemBuilder:(context,index){return _item(index);}
-          ),
+          )
     );
   }
 }
