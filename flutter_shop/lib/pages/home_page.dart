@@ -14,6 +14,13 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   bool get wantKeepAlive => true;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('1111');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text('百姓生活+'),),
